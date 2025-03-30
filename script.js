@@ -24,6 +24,7 @@ const forecastButton = document.querySelector('.forecast-btn');
 const currentForecastTitle = document.querySelector('.current-forecast h1');
 const currentForecastText = document.querySelector('.current-forecast p');
 const forecastsContainer = document.querySelector('.forecasts');
+const forecastTemplate = document.getElementById('forecast-item'); 
 
 function generatePrediction() {
     const randomNum = Math.floor(Math.random() * 5) + 1;
@@ -52,18 +53,12 @@ function generatePrediction() {
     currentForecastTitle.textContent = prediction;
     currentForecastText.textContent = `Вероятность: ${probability}%`;
 
-    const newForecastItem = document.createElement('div');
-    newForecastItem.classList.add('forecast-item');
+    const newForecastItem = forecastTemplate.content.cloneNode(true);  
 
-    const forecastTitle = document.createElement('h3');
-    forecastTitle.textContent = prediction;
+    newForecastItem.querySelector('h3').textContent = prediction;
 
-    const forecastProbability = document.createElement('p');
-    forecastProbability.textContent = `Вероятность:  ${probability}%`;
-
-    newForecastItem.append(forecastTitle);
-    newForecastItem.append(forecastProbability);
-
+    newForecastItem.querySelector('p').textContent = `Вероятность: ${probability}%`;
+    
     forecastsContainer.prepend(newForecastItem);
 }
 
